@@ -1,0 +1,37 @@
+-- 1. Retrieve details of all books in the library – id, title, name of publisher, authors, number of 
+-- copies in each Programme, etc.
+select b.book_id,b.title,b.publisher_name,a.author_name,c.NO_OF_COPIES
+from book as b
+inner join book_authors as a 
+on b.book_id=a.book_id
+inner join  book_copies as c
+on b.book_id=c.book_id;
+
+-- Get the particulars of borrowers who have borrowed more than 3 books, but from Jan 2017 
+-- to Jun 2017.
+select card_no
+from book_lending
+where  date_out between "2017-01-01" and "2017-07-01"
+group by card_no
+having count(*)>3;
+
+-- Delete a book in BOOK table. Update the contents of other tables to reflect this data 
+-- manipulation operation.
+delete from book
+where book_id=1;
+
+-- Partition the BOOK table based on year of publication. Demonstrate its working with a simple 
+-- query.
+-- CREATE VIEW vp1 AS 
+-- SELECT b.book_id, b.title, b.pub_year
+-- FROM book AS b
+-- GROUP BY b.book_id, b.title, b.pub_year;
+-- select * from vp1;
+
+-- Create a view of all books and its number of copies that are currently available in the Library.
+-- create view b1 as
+-- select b.book_id,c.NO_OF_COPIES
+-- from book as b
+-- inner join BOOK_COPIES as c
+-- where b.book_id=c.book_id;
+-- select * from b1;
